@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/Home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"
+    />
+    <item
+        android:id="@+id/Destino"
+        android:icon="@drawable/direcao"
+        android:title="Destino"
+    />
+    <item
+        android:id="@+id/Favoritos"
+        android:icon="@drawable/star"
+        android:title="Favoritos"
+        />
+    <item
+        android:id="@+id/Salas"
+        android:title="Salas de Estudo"
+        />
+</menu>

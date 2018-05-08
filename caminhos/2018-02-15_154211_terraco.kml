@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<!-- segment: terraco category: Bike -->
+<Placemark id="track">
+<name>terraco</name>
+<Style id="normalState">
+<LineStyle>
+<color>cc7f0055</color>
+<width>4</width>
+</LineStyle>
+</Style>
+<Style id="highlightState">
+<LineStyle>
+<color>ccff00ff</color>
+<width>4</width>
+</LineStyle>
+</Style>
+<StyleMap id="styleMap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normalState</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlightState</styleUrl>
+</Pair>
+</StyleMap>
+<styleUrl>#styleMap</styleUrl>
+<LineString>
+<coordinates>
+-16.924729,32.659289,185.00
+-16.924605,32.659276,184.00
+-16.924605,32.659276,184.00
+</coordinates>
+</LineString>
+<description>Duration: 00:01:25 Length: 11.63 Speed: 0.49</description>
+</Placemark>
+</Document>
+</kml>
+<!-- Summary -->
+<!-- Creator: Ultra GPS Logger 3.142j -->
+<!-- Name: terraco -->
+<!-- Duration: 00:01:25 -->
+<!-- Length: 11.63 -->
+<!-- Speed: 0.49 -->
+<!-- POI: 0 -->
+<!-- Category: Bike -->
+<!-- From: 32.659289; -16.924729 To: 32.659276; -16.924605 -->
+<!-- FromCity: Nossa Senhora do Monte ToCity: Nossa Senhora do Monte -->
+<!-- FromUTC: 2018-02-15T15:42:59Z [0.0] ToUTC: 2018-02-15T15:43:00Z [0.0] -->
+<!-- Trigger: 5 TimeTrigger: 1000 DistTrigger: 0 -->
+<!-- MaxSpeed: 2.81 -->
+<!-- Stopped: 00:00:00 (0) -->
+<!-- AvgMovSpeed: 0.49 -->

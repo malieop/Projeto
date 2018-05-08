@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<!-- segment: volta_a_uni category: Bike -->
+<Placemark id="track">
+<name>volta_a_uni</name>
+<Style id="normalState">
+<LineStyle>
+<color>cc7f0055</color>
+<width>4</width>
+</LineStyle>
+</Style>
+<Style id="highlightState">
+<LineStyle>
+<color>ccff00ff</color>
+<width>4</width>
+</LineStyle>
+</Style>
+<StyleMap id="styleMap">
+<Pair>
+<key>normal</key>
+<styleUrl>#normalState</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#highlightState</styleUrl>
+</Pair>
+</StyleMap>
+<styleUrl>#styleMap</styleUrl>
+<LineString>
+<coordinates>
+-16.924724,32.659229,192.00
+-16.924670,32.659195,191.00
+-16.924738,32.659150,182.00
+-16.924788,32.659123,180.00
+-16.924839,32.659097,183.00
+-16.924886,32.659074,182.00
+-16.924832,32.659075,184.00
+-16.924777,32.659088,184.00
+-16.924723,32.659100,183.00
+-16.924670,32.659050,187.00
+-16.924648,32.659002,186.00
+-16.924637,32.658975,186.00
+</coordinates>
+</LineString>
+<description>Duration: 00:04:55 Length: 62.54 Speed: 0.76</description>
+</Placemark>
+</Document>
+</kml>
+<!-- Summary -->
+<!-- Creator: Ultra GPS Logger 3.142j -->
+<!-- Name: volta_a_uni -->
+<!-- Duration: 00:04:55 -->
+<!-- Length: 62.54 -->
+<!-- Speed: 0.76 -->
+<!-- POI: 0 -->
+<!-- Category: Bike -->
+<!-- From: 32.659229; -16.924724 To: 32.658975; -16.924637 -->
+<!-- FromCity: Nossa Senhora do Monte ToCity: Nossa Senhora do Monte -->
+<!-- FromUTC: 2018-02-15T15:20:34Z [0.0] ToUTC: 2018-02-15T15:23:25Z [0.0] -->
+<!-- Trigger: 5 TimeTrigger: 1000 DistTrigger: 0 -->
+<!-- MaxSpeed: 5.26 -->
+<!-- Stopped: 00:00:00 (0) -->
+<!-- AvgMovSpeed: 0.72 -->
