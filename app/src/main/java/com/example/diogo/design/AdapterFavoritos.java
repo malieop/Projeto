@@ -11,20 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
- * Created by diogo on 20-04-2018.
+ * Created by diogo on 17-05-2018.
  */
 
-public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
+public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.ViewHolder>{
     private static List<Local> listaFavoritos;
     private static Context ctx;
 
 
-    public AdapterFav(List<Local> listaFavoritos, Context ctx) {
+    public AdapterFavoritos(List<Local> listaFavoritos, Context ctx) {
         this.listaFavoritos = listaFavoritos;
         this.ctx = ctx;
     }
@@ -32,10 +34,10 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterFavoritos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_lista,parent,false);
-        return new ViewHolder(v);
+        return new AdapterFavoritos.ViewHolder(v);
     }
 
     @Override
@@ -43,6 +45,9 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
         Local listaFavorito = listaFavoritos.get(position);
         Log.i("MERDA", listaFavorito.getLocalizacao());
         holder.testviewSitio.setText(listaFavorito.getLocalizacao());
+        ImageView i = holder.imageviewsitio;
+        Log.d("URL",listaFavorito.getUrl());
+        Picasso.get().load(listaFavorito.getUrl()).resize(200,200).into(i);
     }
 
     @Override
@@ -65,7 +70,7 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
         }
         @Override
         public void onClick(View view) {
-            Log.d("Click", "cliquei "+ getLayoutPosition());
+           /* Log.d("Click", "cliquei "+ getLayoutPosition());
             Local l = listaFavoritos.get(getLayoutPosition());
             Log.d("Click", l.getLocalizacao());
             Log.d("Click", l.getUrl());
@@ -74,7 +79,7 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
             Toast.makeText(ctx,"Inseriu um novo local nos Favoritos.",Toast.LENGTH_LONG);
             Intent i=new Intent(ctx, FullscreenActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(ctx,i,null);
+            startActivity(ctx,i,null);*/
         }
     }
 

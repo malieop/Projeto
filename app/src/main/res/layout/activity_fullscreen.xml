@@ -6,7 +6,6 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/foto_corredor"
     tools:context="com.example.diogo.design.FullscreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
