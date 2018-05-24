@@ -48,16 +48,15 @@ public class FavoritosActivity extends AppCompatActivity {
         recycler.setAdapter(mAdapter);
 
 
-        ImageView fab = (ImageView) findViewById(R.id.addfav);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton destino = findViewById(R.id.addfav);
+        destino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent ;
-                intent = new Intent(getApplicationContext(),AddFavoritosActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),AddFavoritosActivity.class));
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -75,7 +74,8 @@ public class FavoritosActivity extends AppCompatActivity {
         dtoggle = new ActionBarDrawerToggle(this, drawer,R.string.open,R.string.close);
         drawer.addDrawerListener(dtoggle);
         dtoggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         navigation = (NavigationView) findViewById(R.id.navigation);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

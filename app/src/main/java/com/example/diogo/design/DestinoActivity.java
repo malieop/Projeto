@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -28,11 +29,10 @@ public class DestinoActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ActionBarDrawerToggle dtoggle;
     private RecyclerView recycler;
-    private RecyclerView.Adapter mAdapter;
-    private List<Local> listaPontos;
+    private AdapterPontos mAdapter;
+    private ArrayList<Local> listaPontos;
     private NavigationView navigation;
-
-
+    private ArrayAdapter<Local>lista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +82,10 @@ public class DestinoActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public boolean onQueryTextChange(String s) {
+                    public boolean onQueryTextChange(String s)
+                    {
+
+                        mAdapter.getFilter().filter(s);
                         return false;
                     }
                 }
@@ -108,6 +111,10 @@ public class DestinoActivity extends AppCompatActivity {
         dtoggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+
+
         navigation = (NavigationView) findViewById(R.id.navigation);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

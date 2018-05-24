@@ -4,7 +4,7 @@
     android:id="@+id/searchMenu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#304ffe"
+    android:background="#0f1520"
     android:orientation="vertical"
     app:menu="@menu/search">
 

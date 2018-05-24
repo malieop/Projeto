@@ -7,24 +7,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.startActivity;
+import static android.util.Log.println;
 
 /**
  * Created by diogo on 12-05-2018.
  */
 
-public class AdapterPontos extends RecyclerView.Adapter<AdapterPontos.ViewHolder> {
-    private List<Local> listaPontos;
+public class AdapterPontos extends RecyclerView.Adapter<AdapterPontos.ViewHolder> implements Filterable {
+    private static ArrayList<Local> listaPontos;
     private Context ctx;
     private static Local destino;
+    private MyFilter filter;
 
 
-    public AdapterPontos(List<Local> listaPontos, Context ctx) {
+    public AdapterPontos(ArrayList<Local> listaPontos, Context ctx) {
         this.listaPontos = listaPontos;
         this.ctx = ctx;
     }
@@ -32,7 +38,7 @@ public class AdapterPontos extends RecyclerView.Adapter<AdapterPontos.ViewHolder
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_lista,parent,false);
+                    .inflate(R.layout.cardview_normal,parent,false);
             return new ViewHolder(v);
         }
 
@@ -48,14 +54,23 @@ public class AdapterPontos extends RecyclerView.Adapter<AdapterPontos.ViewHolder
             return listaPontos.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    @Override
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new MyFilter(this, listaPontos);
+        }
+        return filter;
+
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
             public TextView testviewSitio;
 
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                testviewSitio = (TextView) itemView.findViewById(R.id.nome_sitio1);
+                testviewSitio = (TextView) itemView.findViewById(R.id.nome_sitio);
                 itemView.setOnClickListener(this);
             }
             @Override
@@ -75,6 +90,50 @@ public class AdapterPontos extends RecyclerView.Adapter<AdapterPontos.ViewHolder
     public static void setDestino(Local destino) {
         AdapterPontos.destino = destino;
     }
+
+    private static class MyFilter extends Filter{
+        private final AdapterPontos adapter;
+        private final List<Local> originalList;
+        private final List<Local> filteredList;
+
+        private MyFilter(AdapterPontos adapter, List<Local> originalList) {
+            super();
+            this.adapter = adapter;
+            this.originalList = new LinkedList<>(originalList);
+            this.filteredList = new ArrayList<>();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence){
+            filteredList.clear();
+            final FilterResults results = new FilterResults();
+
+            if (charSequence.length() == 0) {
+                filteredList.addAll(originalList);
+            } else {
+                final String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Local item : originalList) {
+                    if (item.getLocalizacao().toLowerCase().contains(filterPattern) ){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            listaPontos.clear();
+            listaPontos.addAll(filteredList);
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
 }
 
 

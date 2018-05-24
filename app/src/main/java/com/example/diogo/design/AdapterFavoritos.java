@@ -47,7 +47,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.View
         holder.testviewSitio.setText(listaFavorito.getLocalizacao());
         ImageView i = holder.imageviewsitio;
         Log.d("URL",listaFavorito.getUrl());
-        Picasso.get().load(listaFavorito.getUrl()).resize(200,200).into(i);
+        Picasso.get().load(listaFavorito.getUrl()).resize(400,400).into(i);
     }
 
     @Override
@@ -70,16 +70,10 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.View
         }
         @Override
         public void onClick(View view) {
-           /* Log.d("Click", "cliquei "+ getLayoutPosition());
             Local l = listaFavoritos.get(getLayoutPosition());
-            Log.d("Click", l.getLocalizacao());
-            Log.d("Click", l.getUrl());
-            Log.d("Click", Integer.toString(l.getId()));
-            DBmanager.insereFavoritosTabela(ctx,l.getId(),l.getLocalizacao(),l.getUrl());
-            Toast.makeText(ctx,"Inseriu um novo local nos Favoritos.",Toast.LENGTH_LONG);
-            Intent i=new Intent(ctx, FullscreenActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(ctx,i,null);*/
+            AdapterPontos.setDestino(l);
+            Intent i=new Intent(ctx,SwipeActivity.class);
+            startActivity(ctx,i,null);
         }
     }
 

@@ -6,39 +6,55 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#21252e"
     android:id="@+id/drawer"
     tools:context="com.example.diogo.design.FavoritosActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation= "vertical">
+
+    <include layout= "@layout/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout= "@layout/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9">
+            >
 
 
         </android.support.v7.widget.RecyclerView>
 
 
-        <ImageView
-            android:id="@+id/addfav"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_weight="0.1"
-            app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
 
+
+    </android.support.constraint.ConstraintLayout>
 
 
     </LinearLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addfav"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:backgroundTint="#ec3410"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"

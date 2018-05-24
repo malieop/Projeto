@@ -34,7 +34,7 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_lista,parent,false);
+                .inflate(R.layout.cardview_normal,parent,false);
         return new ViewHolder(v);
     }
 
@@ -53,13 +53,12 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView testviewSitio;
-        public ImageView imageviewsitio;
+
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            testviewSitio = (TextView) itemView.findViewById(R.id.nome_sitio1);
-            imageviewsitio =(ImageView) itemView.findViewById(R.id.imagem_fav);
+            testviewSitio = (TextView) itemView.findViewById(R.id.nome_sitio);
             itemView.setOnClickListener(this);
 
         }

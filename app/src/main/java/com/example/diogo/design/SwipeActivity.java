@@ -62,7 +62,8 @@ public class SwipeActivity extends AppCompatActivity {
         dtoggle = new ActionBarDrawerToggle(this, drawer,R.string.open,R.string.close);
         drawer.addDrawerListener(dtoggle);
         dtoggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //navigation
