@@ -12,23 +12,22 @@
     android:noHistory="true"
     >
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/local_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.9"
         android:scaleType="fitXY"
+        android:background="@mipmap/black"
         />
-
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
 
     <LinearLayout
         android:id="@+id/linearlayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTint="#000000">
+
         <include layout= "@layout/toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
@@ -39,14 +38,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="75dp"
-            android:drawableTop="@mipmap/ic_launcher"/>
+            android:drawableTop="@mipmap/ic_launcher"
+            android:textSize="20sp"
+            android:textColor="@color/branco"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/mensagemErro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/branco"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="85dp"
+
+            />
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/black"
+            android:gravity="bottom">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/favoritos"
@@ -54,8 +68,8 @@
                 android:layout_height="80dp"
                 android:layout_margin="20dp"
 
-                app:backgroundTint="@color/azul"
                 android:clickable="true"
+                app:backgroundTint="@color/azul"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
@@ -65,9 +79,9 @@
                 android:id="@+id/direcoes"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                app:backgroundTint="@color/azul"
                 android:layout_margin="20dp"
                 android:clickable="true"
+                app:backgroundTint="@color/azul"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_directions"

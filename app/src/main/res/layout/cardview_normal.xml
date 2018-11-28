@@ -11,10 +11,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
         android:layout_weight="0.1"
-        android:backgroundTint="#181f2d"
-
-        >
-
+        android:backgroundTint="#181f2d">
                 <TextView
                     android:layout_marginLeft="10dp"
                     android:id="@+id/nome_sitio"
@@ -24,7 +21,6 @@
                     android:textColor="@color/branco"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
                 </TextView>
-
 
     </android.support.v7.widget.CardView>
 

@@ -7,10 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -19,12 +23,13 @@ import static android.support.v4.content.ContextCompat.startActivity;
  * Created by diogo on 20-04-2018.
  */
 
-public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
-    private static List<Local> listaFavoritos;
+public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> implements Filterable {
+    private static ArrayList<Local> listaFavoritos;
     private static Context ctx;
+    private MyFilter filter;
 
 
-    public AdapterFav(List<Local> listaFavoritos, Context ctx) {
+    public AdapterFav(ArrayList<Local> listaFavoritos, Context ctx) {
         this.listaFavoritos = listaFavoritos;
         this.ctx = ctx;
     }
@@ -50,6 +55,15 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
         return listaFavoritos.size();
     }
 
+    @Override
+    public Filter getFilter() {
+
+        if (filter == null) {
+            filter = new AdapterFav.MyFilter(this, listaFavoritos);
+        }
+        return filter;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView testviewSitio;
@@ -69,12 +83,54 @@ public class AdapterFav extends RecyclerView.Adapter<AdapterFav.ViewHolder> {
             Log.d("Click", l.getLocalizacao());
             Log.d("Click", l.getUrl());
             Log.d("Click", Integer.toString(l.getId()));
-            DBmanager.insereFavoritosTabela(ctx,l.getId(),l.getLocalizacao(),l.getUrl());
+            DBmanager.insereFavoritosTabela(ctx,l.getId(),l.getTipo(),l.getLocalizacao(),l.getUrl(),l.getLugar());
             Toast.makeText(ctx,"Inseriu um novo local nos Favoritos.",Toast.LENGTH_LONG);
             Intent i=new Intent(ctx, FullscreenActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(ctx,i,null);
         }
+    }
+    private static class MyFilter extends Filter {
+        private final AdapterFav adapter;
+        private final List<Local> originalList;
+        private final List<Local> filteredList;
+
+        private MyFilter(AdapterFav adapter, ArrayList<Local> originalList) {
+            super();
+            this.adapter = adapter;
+            this.originalList = new LinkedList<>(originalList);
+            this.filteredList = new ArrayList<>();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence){
+            filteredList.clear();
+            final FilterResults results = new FilterResults();
+
+            if (charSequence.length() == 0) {
+                filteredList.addAll(originalList);
+            } else {
+                final String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Local item : originalList) {
+                    if (item.getLocalizacao().toLowerCase().contains(filterPattern) ){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            listaFavoritos.clear();
+            listaFavoritos.addAll(filteredList);
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
 }

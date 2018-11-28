@@ -45,6 +45,8 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.View
         Local listaFavorito = listaFavoritos.get(position);
         Log.i("MERDA", listaFavorito.getLocalizacao());
         holder.testviewSitio.setText(listaFavorito.getLocalizacao());
+        if(listaFavorito.getLugar() != 0){
+        holder.subtextSitio.setText("Lugares:"+listaFavorito.getLugar());}
         ImageView i = holder.imageviewsitio;
         Log.d("URL",listaFavorito.getUrl());
         Picasso.get().load(listaFavorito.getUrl()).resize(400,400).into(i);
@@ -59,12 +61,14 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.View
 
         public TextView testviewSitio;
         public ImageView imageviewsitio;
+        public TextView subtextSitio;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             testviewSitio = (TextView) itemView.findViewById(R.id.nome_sitio1);
             imageviewsitio =(ImageView) itemView.findViewById(R.id.imagem_fav);
+            subtextSitio = (TextView) itemView.findViewById(R.id.subinformation);
             itemView.setOnClickListener(this);
 
         }

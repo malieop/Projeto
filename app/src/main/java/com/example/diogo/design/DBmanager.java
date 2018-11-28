@@ -41,6 +41,7 @@ public final class DBmanager {
     //Colunas da tabela PONTOS
 
     private static final String coluna_id = "id";
+    private static final String coluna_tipos = "tipo";
     private static final String coluna_nome = "pontos";
     private static final String coluna_link_imagem = "imagens";
     private static final String coluna_id_aparelho = "Id_aparelho";
@@ -52,6 +53,7 @@ public final class DBmanager {
     // COlunas da tabela favoritos
     private static final String coluna_id_fav = "id";
     private static final String coluna_nome_fav = "sitios";
+    private static final String coluna_fav_lugares = "lugares";
     //Tabela Escadas
     private static final String NOME_TABELA_ESCADAS = "escadas";
     // Colunas da tabela escadas
@@ -124,17 +126,21 @@ public final class DBmanager {
         String criaDB =
                 "CREATE TABLE `" + NOME_TABELA_PONTOS + "` (" +
                         "  " + coluna_id + " INTEGER PRIMARY KEY," +
+                        "  " + coluna_tipos+ " TEXT,"+
                         "  " + coluna_nome + " TEXT ," +
                         "  " + coluna_link_imagem+" TEXT,"+
                         "  " + coluna_id_aparelho + " INTENGER,"+
                         "  " + coluna_andar + " INTENGER," +
-                        "  " + coluna_swipe_helper+ " TEXT)";
+                        "  " + coluna_swipe_helper+ " TEXT," +
+                        "   " + coluna_fav_lugares+ " INTEGER)";
 
 
         String criaDB1 = "CREATE TABLE " + NOME_TABELA_FAVORITOS + " (" +
                 "   " + coluna_id_fav + " INTEGER PRIMARY KEY," +
+                "   " + coluna_tipos + " TEXT,"+
                 "   " + coluna_nome_fav + " TEXT," +
-                "   " + coluna_link_imagem+" TEXT )";
+                "   " + coluna_link_imagem+" TEXT," +
+                "   " + coluna_fav_lugares+ " INTEGER)";
         String criaDB2 = "CREATE TABLE " + NOME_TABELA_ESCADAS + " (" +
                 "   " + coluna_escadas_id+ " INTEGER PRIMARY KEY," +
                 "   " + coluna_escadas_sitio + " TEXT," +
@@ -161,7 +167,7 @@ public final class DBmanager {
     //INSERES
 
 
-    public static synchronized boolean insereFavoritosTabela(Context ctx, int id, String nome,String url){
+    public static synchronized boolean insereFavoritosTabela(Context ctx, int id, String tipo, String nome,String url, int lugares ){
         boolean res = false;
         SQLiteStatement stm = null;
         Log.i("Teste INSERT", "bosta");
@@ -172,10 +178,12 @@ public final class DBmanager {
                     "insert into " +
                             "	" + NOME_TABELA_FAVORITOS
                             + " ( "+coluna_id_fav+", "
+                            + coluna_tipos+ ","
                             +coluna_nome_fav+", "
-                            +coluna_link_imagem+")" +
-                            "Select '"+id+"','"+nome+"','"+url+"'"+
-                            "WHERE NOT EXISTS(SELECT * FROM "+NOME_TABELA_FAVORITOS+" WHERE "+coluna_id_fav+" = "+id+" AND "+coluna_nome_fav+" = '"+nome+"' AND "+coluna_link_imagem+" = '"+url+"' )";
+                            +coluna_link_imagem+"," +
+                            ""+coluna_fav_lugares+")" +
+                            "Select '"+id+"','"+tipo+"','"+nome+"','"+url+"','"+lugares+"'"+
+                            "WHERE NOT EXISTS(SELECT * FROM "+NOME_TABELA_FAVORITOS+" WHERE "+coluna_id_fav+" = "+id+" AND "+coluna_nome_fav+" = '"+nome+"' AND "+coluna_link_imagem+" = '"+url+"' AND "+coluna_fav_lugares+" = '"+lugares+"')";
             Log.i("QUERY INSERT", sql);
             stm = db.compileStatement(sql);
 
@@ -200,58 +208,6 @@ public final class DBmanager {
 
         return res;
     }
-    public static synchronized boolean inserePontos(Context ctx){
-        boolean res = false;
-        SQLiteStatement stm = null;
-        Log.i("Teste INSERT", "bosta");
-        db.beginTransaction();
-        try {
-            // Create the insert statement
-            String sql =
-                    "insert into " +
-                            "	" + NOME_TABELA_PONTOS
-                            + " ( "+coluna_id+", "
-                            +coluna_nome+","
-                            +coluna_link_imagem+","
-                            +coluna_id_aparelho+")" +
-                            "values ( NULL,'Sala de estudo 0' ,'aaaaaaa','12122121')," +
-                            "( NULL,'Sala de estudo 2' ,'cccccc','12122121')," +
-                            "( NULL,'Biblioteca' ,'aaaaaaa','12122121')," +
-                            "( NULL,'Sala de estudo 3' ,'aaaaaaa','12122121')," +
-                            "( NULL,'Sala de estudo de Engenharia' ,'aaaaaaa','12122121')," +
-                            "( NULL,'Departamento de Engenharia' ,'aaaaaaa','12122121')," +
-                            "(NULL, 'Sala de estudo 1', 'https://i.imgur.com/DM29g0M.jpg', '111:111:111:111')";
-            Log.i("QUERY INSERT", sql);
-            stm = db.compileStatement(sql);
-
-            // Iterate over the array, extracting values as necessary
-
-               /* stm.bindNull(1);
-                stm.bindString(2, descricao);
-                stm.bindString(3, redeInfo.getId(ctx));
-                stm.bindLong(4,redeInfo.getFreq(ctx));
-                stm.bindString(5,redeInfo.getDateTime());*/
-            Log.i("STM", String.valueOf(stm));
-
-            if (stm.executeInsert() <= 0){
-                Log.d("Insert", "Failed insertion of event into database");
-            }
-
-
-            // Signal success and update result value
-            db.setTransactionSuccessful();
-            res = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally	{
-            //stm.close();
-            db.endTransaction();
-
-            //Log.d(MODULE, "new event Data inserted");
-        }
-
-        return res;
-    }
     public static synchronized boolean inserePonto(Local local){
         boolean res = false;
         SQLiteStatement stm = null;
@@ -262,13 +218,15 @@ public final class DBmanager {
             String sql = "insert into " +
                     "	" + NOME_TABELA_PONTOS
                     + " ( "+coluna_id+", "
+                    +coluna_tipos+","
                     +coluna_nome+","
                     +coluna_link_imagem+","
                     +coluna_id_aparelho+","
                     +coluna_andar+","
-                    +coluna_swipe_helper+")"+
-                    "Select '"+local.getId()+"','"+local.getLocalizacao()+"','"+local.getUrl()+"','"+local.getIdaparelho()+"','"+local.getAndar()+"','"+local.getSwipe_helper()+"'"+
-                    "WHERE NOT EXISTS(SELECT * FROM "+NOME_TABELA_PONTOS+" WHERE "+coluna_id+" = "+local.getId()+" AND "+coluna_nome+" = '"+local.getLocalizacao()+"' AND "+coluna_link_imagem+" = '"+local.getUrl()+"' AND "+coluna_id_aparelho+" = '"+local.getIdaparelho()+"' AND "+coluna_andar+" = '"+local.getAndar()+"' AND "+coluna_swipe_helper+" = '"+local.getSwipe_helper()+"' )";
+                    +coluna_swipe_helper+","
+                    +coluna_fav_lugares+")"+
+                    "Select '"+local.getId()+"','"+local.getTipo()+"','"+local.getLocalizacao()+"','"+local.getUrl()+"','"+local.getIdaparelho()+"','"+local.getAndar()+"','"+local.getSwipe_helper()+"','"+local.getLugar()+"'"+
+                    "WHERE NOT EXISTS(SELECT * FROM "+NOME_TABELA_PONTOS+" WHERE "+coluna_id+" = "+local.getId()+" AND "+coluna_nome+" = '"+local.getLocalizacao()+"' AND "+coluna_link_imagem+" = '"+local.getUrl()+"' AND "+coluna_id_aparelho+" = '"+local.getIdaparelho()+"' AND "+coluna_andar+" = '"+local.getAndar()+"' AND "+coluna_swipe_helper+" = '"+local.getSwipe_helper()+"' AND "+coluna_fav_lugares+" = '"+local.getLugar()+"')";
 
 
 
@@ -385,6 +343,7 @@ public final class DBmanager {
         Cursor c;
         db.beginTransaction();
         int id = 0;
+        String tipo = "";
         String nome = "";
         String urlponto = "";
         String MAC = "";
@@ -398,14 +357,15 @@ public final class DBmanager {
         ;
         while(c.moveToNext()){
              id = c.getInt(0);
-             nome = c.getString(1);
-             urlponto = c.getString(2);
-             MAC =c.getString(3);
-             andar = c.getInt(4);
-             helper = c.getString(5);
+             tipo = c.getString(1);
+             nome = c.getString(2);
+             urlponto = c.getString(3);
+             MAC =c.getString(4);
+             andar = c.getInt(5);
+             helper = c.getString(6);
 
         }
-        Local l = new Local( urlponto , nome,MAC,id,andar, helper);
+        Local l = new Local( tipo,urlponto , nome,MAC,id,andar, helper);
         Log.d("local", nome);
         Log.d("url", urlponto);
         Log.d("MAC",MAC);
@@ -436,8 +396,9 @@ public final class DBmanager {
                             String MAC = ponto.getString("mac");
                             int andar = ponto.getInt("andar");
                             String helper = ponto.getString("swipe_helper");
+                            int lugar = ponto.getInt("lugares");
 
-                            Local pontoReferencia = new Local(urlponto,nome,MAC,id,andar,tipo,helper);
+                            Local pontoReferencia = new Local(urlponto,nome,MAC,id,andar,tipo,helper,lugar);
                             if(tipo.equals("escadas")) {
                                 insereEscada(pontoReferencia);
                             }
@@ -478,13 +439,15 @@ public final class DBmanager {
 
         while(c.moveToNext()){
             int id = c.getInt(0);
-            String nome = c.getString(1);
-            String urlponto = c.getString(2);
-            String MAC =c.getString(3);
-            int andar = c.getInt(4);
-            String helper = c.getString(5);
+            //String tipo = c.getString(1); não é necessário neste caso
+            String nome = c.getString(2);
+            String urlponto = c.getString(3);
+            String MAC =c.getString(4);
+            int andar = c.getInt(5);
+            String helper = c.getString(6);
+            int lugar = c.getInt(7);
 
-            Local l = new Local( urlponto , nome,MAC,id,andar, helper);
+            Local l = new Local( urlponto , nome,MAC,id,andar, helper,lugar);
             pontos.add(l);
         }
 
@@ -500,10 +463,11 @@ public final class DBmanager {
 
         while(c.moveToNext()){
             int id = c.getInt(0);
-            String localizacao = c.getString(1);
-            String url = c.getString(2);
+            String localizacao = c.getString(2);
+            String url = c.getString(3);
+            int lugar = c.getInt(4);
 
-            Local l = new Local(id,url, localizacao);
+            Local l = new Local(id,url, localizacao,lugar);
             pontos.add(l);
         }
         return pontos;

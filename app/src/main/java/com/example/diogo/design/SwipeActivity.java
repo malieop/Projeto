@@ -49,10 +49,29 @@ public class SwipeActivity extends AppCompatActivity {
             Local destino = AdapterPontos.getDestino();
             Local escada =  DBmanager.getEscada(inicial);
             imagens_url.add(inicial.getUrl());
+
+            // mensagem intercalada com a imagem,
+        //  mensagem antes da imagem das escadas ou da imagem de destino dependendo do caso
+            if(inicial.getAndar() == destino.getAndar() ){
+                if(inicial.getTipo().equals("corredor")){
+                    imagens_url.add("Você já se encontra no corredor correto para o sitío que pretende ir.");
+                }
+                else{
+                    imagens_url.add("Dirija-se até ao corredor deste andar.");
+                }
+            }
+            else{
+                imagens_url.add("Dirija-se até as escadas mais próximas.");
+            }
+
+            // Adiciona escada e a mensagem com o andar a que se deve dirijir
             if(inicial.getAndar() != destino.getAndar()) {
                 imagens_url.add(escada.getUrl());
+                imagens_url.add("Vá até ao andar "+destino.getAndar()+".");
             }
+            // imagem de destino e a mensagem a finalizar
             imagens_url.add(destino.getUrl());
+            imagens_url.add("A seta corresponde ao destino pretendido.");
     }
     public void menus(){
         // Toolbar

@@ -20,8 +20,8 @@ public class AddFavoritosActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ActionBarDrawerToggle dtoggle;
     private RecyclerView recycler;
-    private RecyclerView.Adapter mAdapter;
-    private List<Local> listaPontos;
+    private AdapterFav mAdapter;
+    private ArrayList<Local> listaPontos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,8 @@ public class AddFavoritosActivity extends AppCompatActivity {
         dtoggle = new ActionBarDrawerToggle(this, drawer,R.string.open,R.string.close);
         drawer.addDrawerListener(dtoggle);
         dtoggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
@@ -66,6 +67,8 @@ public class AddFavoritosActivity extends AppCompatActivity {
 
                     @Override
                     public boolean onQueryTextChange(String s) {
+
+                        mAdapter.getFilter().filter(s);
                         return false;
                     }
                 }

@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#d2d2d2"
                     android:layout_gravity="center"
-                    android:text= "Lugares: 60"/>
+                    />
                 </LinearLayout>
             </LinearLayout>
 

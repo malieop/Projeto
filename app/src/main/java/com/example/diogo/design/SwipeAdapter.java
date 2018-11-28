@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -45,19 +46,27 @@ public class SwipeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutinflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v  = layoutinflater.inflate(R.layout.swipe_layout,container,false);
-        ImageView imageview = (ImageView) v.findViewById(R.id.imageview);
-
-        Log.d("URL", imagens.get(position));
-
-        try {
-            Picasso.get().load(imagens.get(position)).resize(Screen.getScreenWidth(),Screen.getScreenHeight()).into(imageview);
+        View v;
+        if(position % 2 != 0) {
+            v = layoutinflater.inflate(R.layout.swipe_layout_mensage, container, false);
+            TextView textView = (TextView) v.findViewById(R.id.guideMensage);
+            textView.setText(imagens.get(position));
+            //Log.d("textview", "chegou a textview");
         }
-        catch (IllegalArgumentException e){
-            Toast.makeText(ctx,"Erro, a rede a que esta ligado não foi reconhecida.",Toast.LENGTH_LONG).show();
-            Intent i=new Intent(ctx, FullscreenActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(ctx,i,null);
+        else {
+            v = layoutinflater.inflate(R.layout.swipe_layout, container, false);
+            ImageView imageview = (ImageView) v.findViewById(R.id.imageview);
+
+            Log.d("URL", imagens.get(position));
+
+            try {
+                Picasso.get().load(imagens.get(position)).resize(Screen.getScreenWidth(), Screen.getScreenHeight()).into(imageview);
+            } catch (IllegalArgumentException e) {
+                Toast.makeText(ctx, "Erro, a rede a que esta ligado não foi reconhecida.", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(ctx, FullscreenActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(ctx, i, null);
+            }
         }
         container.addView(v);
 

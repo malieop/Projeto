@@ -236,9 +236,10 @@ public class FullscreenActivity extends AppCompatActivity implements View.OnClic
                 Log.i("local", local_inicial.getUrl());
                 runOnUiThread(()->
                 {
-                    ImageView imageView = (ImageView) findViewById(R.id.local_img);
+                    android.support.v7.widget.AppCompatImageView imageView = (android.support.v7.widget.AppCompatImageView ) findViewById(R.id.local_img);
                     Log.e("paneleirada", l.getUrl());
                     try{
+                        Log.d("picasso", "chegou ao catch");
                     Picasso.get().load(l.getUrl()).into(imageView);// url de teste "https://i.imgur.com/DM29g0M.jpg"
 
                     //aqui defino tambem a localização que vai aparecer na textview
@@ -247,6 +248,9 @@ public class FullscreenActivity extends AppCompatActivity implements View.OnClic
                     catch (IllegalArgumentException e){
                         Toast.makeText(getApplicationContext(),"Não reconhece o Wifi.",Toast.LENGTH_LONG);
 
+                        TextView textView= (TextView) findViewById(R.id.mensagemErro);
+
+                        textView.setText("Área não reconhecida!");
                     }
                 });
 

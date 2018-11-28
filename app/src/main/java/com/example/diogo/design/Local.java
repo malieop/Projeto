@@ -12,6 +12,8 @@ public class Local {
     private int andar;
     private String tipo;
     private String swipe_helper;
+    private int lugar;
+
 
 
     public Local(String url, String localizacao) {
@@ -23,10 +25,11 @@ public class Local {
         this.localizacao= localizacao;
         this.idaparelho= idaparelho;
     }
-    public Local (int id,String url, String localizacao) {
+    public Local (int id,String url, String localizacao, int lugar) {
         this.url= url;
         this.localizacao= localizacao;
         this.id= id;
+        this.lugar= lugar;
     }
     public Local(int id, String url, String localizacao, String idaparelho) {
         this.id= id;
@@ -58,6 +61,15 @@ public class Local {
         this.tipo = tipo;
         this.swipe_helper = swipe_helper;
     }
+    public Local(String url, String localizacao, String idaparelho, int id, int andar, String swipe_helper, int lugar) {
+        this.url = url;
+        this.localizacao = localizacao;
+        this.idaparelho = idaparelho;
+        this.id = id;
+        this.andar = andar;
+        this.swipe_helper = swipe_helper;
+        this.lugar = lugar;
+    }
     public Local(int id, String url, String localizacao, int andar, String swipe_helper){
         this.url = url;
         this.localizacao = localizacao;
@@ -65,13 +77,24 @@ public class Local {
         this.andar = andar;
         this.swipe_helper = swipe_helper;
     }
-    public Local(String url, String localizacao, String idaparelho, int id, int andar, String swipe_helper) {
+    public Local(String tipo,String url, String localizacao, String idaparelho, int id, int andar, String swipe_helper) {
+        this.tipo = tipo;
         this.url = url;
         this.localizacao = localizacao;
         this.idaparelho = idaparelho;
         this.id = id;
         this.andar = andar;
         this.swipe_helper = swipe_helper;
+    }
+    public Local(String url, String localizacao, String idaparelho, int id, int andar, String tipo ,String swipe_helper, int lugar) {
+        this.url = url;
+        this.localizacao = localizacao;
+        this.idaparelho = idaparelho;
+        this.id = id;
+        this.andar = andar;
+        this.swipe_helper = swipe_helper;
+        this.lugar = lugar;
+        this.tipo = tipo;
     }
 
 
@@ -129,6 +152,14 @@ public class Local {
 
     public void setSwipe_helper(String swipe_helper) {
         this.swipe_helper = swipe_helper;
+    }
+
+    public int getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(int lugar) {
+        this.lugar = lugar;
     }
 }
 
